@@ -18,9 +18,7 @@ export default function Home() {
       setSession(session)
     })
 
-    return () => {
-      listener.subscription.unsubscribe()
-    }
+    return () => listener.subscription.unsubscribe()
   }, [])
 
   const signUp = async () => {
@@ -43,81 +41,83 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-6">
+    <div className="min-h-screen bg-black text-gray-100 py-16 px-6">
       <div className="max-w-3xl mx-auto text-center">
-        <h1 className="text-5xl font-bold mb-6">FlowAI Hub</h1>
-        <p className="text-xl mb-12">
+        <h1 className="text-5xl font-bold mb-6 text-white">FlowAI Hub</h1>
+        <p className="text-xl mb-12 text-gray-300">
           Turn Zoom meetings into approved tasks — inside Slack, with hybrid AI oversight.
         </p>
 
         {!session ? (
-          <div className="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
-            <h2 className="text-2xl font-semibold mb-6">Get Started</h2>
+          <div className="max-w-md mx-auto bg-gray-900 p-8 rounded-xl shadow-2xl border border-gray-800">
+            <h2 className="text-2xl font-semibold mb-6 text-white">Get Started</h2>
             
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 mb-4 border rounded-lg"
+              className="w-full p-3 mb-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 mb-6 border rounded-lg"
+              className="w-full p-3 mb-6 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
             />
 
             <div className="flex gap-4 justify-center">
               <button
                 onClick={signUp}
                 disabled={loading}
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
                 Sign Up
               </button>
               <button
                 onClick={signIn}
                 disabled={loading}
-                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 disabled:opacity-50"
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
               >
                 Sign In
               </button>
             </div>
           </div>
         ) : (
-          <div className="max-w-2xl mx-auto bg-white p-10 rounded-xl shadow-lg">
-            <h2 className="text-3xl font-bold mb-6">Welcome back!</h2>
-            <p className="text-lg mb-8">Logged in as: {session?.user?.email || 'User'}</p>
+          <div className="max-w-2xl mx-auto bg-gray-900 p-10 rounded-xl shadow-2xl border border-gray-800">
+            <h2 className="text-3xl font-bold mb-6 text-white">Welcome back!</h2>
+            <p className="text-lg mb-8 text-gray-300">
+              Logged in as: <span className="text-blue-400">{session?.user?.email || 'User'}</span>
+            </p>
 
             <button 
               onClick={signOut}
-              className="bg-red-600 text-white px-8 py-4 rounded-lg hover:bg-red-700 mb-8"
+              className="bg-red-600 text-white px-8 py-4 rounded-lg hover:bg-red-700 mb-8 transition-colors w-full"
             >
               Sign Out
             </button>
 
             <div className="text-left">
-  <h3 className="text-2xl font-semibold mb-4">Next steps</h3>
-  <div className="space-y-4">
-    <button 
-      onClick={() => alert('Slack OAuth coming soon – will open popup')}
-      className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700"
-    >
-      Connect Slack
-    </button>
-    <button 
-      onClick={() => alert('Zoom OAuth coming soon – will open popup')}
-      className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-    >
-      Connect Zoom
-    </button>
-  </div>
-  <p className="mt-6 text-sm text-gray-600">
-    Once connected, run a test Zoom meeting → watch tasks appear in Slack with Approve button.
-  </p>
-</div>
+              <h3 className="text-2xl font-semibold mb-4 text-white">Next steps</h3>
+              <div className="space-y-4">
+                <button 
+                  onClick={() => alert('Slack OAuth coming soon – will open popup')}
+                  className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+                >
+                  Connect Slack
+                </button>
+                <button 
+                  onClick={() => alert('Zoom OAuth coming soon – will open popup')}
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Connect Zoom
+                </button>
+              </div>
+              <p className="mt-6 text-sm text-gray-500">
+                Once connected, run a test Zoom meeting → watch tasks appear in Slack with Approve button.
+              </p>
+            </div>
           </div>
         )}
       </div>
