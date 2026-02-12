@@ -101,22 +101,19 @@ export default function Home() {
             <div className="text-left">
               <h3 className="text-2xl font-semibold mb-4 text-white">Next steps</h3>
               <div className="space-y-4">
-                <button 
-                  onClick={() => alert('Slack OAuth coming soon – will open popup')}
-                  className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors"
-                >
-                  Connect Slack
-                </button>
-                <button 
-                  onClick={() => alert('Zoom OAuth coming soon – will open popup')}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Connect Zoom
-                </button>
-              </div>
-              <p className="mt-6 text-sm text-gray-500">
-                Once connected, run a test Zoom meeting → watch tasks appear in Slack with Approve button.
-              </p>
+  <a
+    href={`https://slack.com/oauth/v2/authorize?client_id=10490775030869.10495791792277&scope=chat:write,channels:read,users:read&redirect_uri=${encodeURIComponent('https://flowai-hub.vercel.app/api/slack-callback')}`}
+    className="block w-full bg-indigo-600 text-white text-center py-3 rounded-lg hover:bg-indigo-700"
+  >
+    Connect Slack
+  </a>
+  <a
+    href={`https://zoom.us/oauth/authorize?response_type=code&client_id=c4cvH4S_TpSXe6FPcBQikQ&redirect_uri=${encodeURIComponent('https://flowai-hub.vercel.app/api/zoom-callback')}`}
+    className="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700"
+  >
+    Connect Zoom
+  </a>
+</div>
             </div>
           </div>
         )}
