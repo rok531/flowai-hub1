@@ -1,7 +1,7 @@
-'use client'  
+'use client'
 
-import { useState, useEffect } from 'react' 
-import { supabase } from '@/lib/supabaseClient' 
+import { useState, useEffect } from 'react'
+import { supabase } from '@/lib/supabaseClient'
 
 export default function Home() {
   const [session, setSession] = useState(null)
@@ -18,7 +18,9 @@ export default function Home() {
       setSession(session)
     })
 
-    return () => listener.subscription.unsubscribe()
+    return () => {
+      listener.subscription.unsubscribe()
+    }
   }, [])
 
   const signUp = async () => {
@@ -87,7 +89,7 @@ export default function Home() {
         ) : (
           <div className="max-w-2xl mx-auto bg-white p-10 rounded-xl shadow-lg">
             <h2 className="text-3xl font-bold mb-6">Welcome back!</h2>
-            <p className="text-lg mb-8">Logged in as: {session.user.email}</p>
+            <p className="text-lg mb-8">Logged in as: {session?.user?.email || 'User'}</p>
 
             <button 
               onClick={signOut}
@@ -97,13 +99,25 @@ export default function Home() {
             </button>
 
             <div className="text-left">
-              <h3 className="text-2xl font-semibold mb-4">Next steps</h3>
-              <ul className="list-disc pl-6 space-y-3 text-lg">
-                <li>Connect your Slack & Zoom accounts</li>
-                <li>Run your first test meeting</li>
-                <li>See tasks appear in Slack with Approve button</li>
-              </ul>
-            </div>
+  <h3 className="text-2xl font-semibold mb-4">Next steps</h3>
+  <div className="space-y-4">
+    <button 
+      onClick={() => alert('Slack OAuth coming soon – will open popup')}
+      className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700"
+    >
+      Connect Slack
+    </button>
+    <button 
+      onClick={() => alert('Zoom OAuth coming soon – will open popup')}
+      className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+    >
+      Connect Zoom
+    </button>
+  </div>
+  <p className="mt-6 text-sm text-gray-600">
+    Once connected, run a test Zoom meeting → watch tasks appear in Slack with Approve button.
+  </p>
+</div>
           </div>
         )}
       </div>
