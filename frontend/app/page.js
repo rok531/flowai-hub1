@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
 
@@ -99,6 +99,13 @@ export default function Home() {
           )}
         </div>
       </header>
+      <Suspense fallback={<div className="h-10" />}>
+        {useSearchParams().get('slack') === 'connected' && (
+          <div className="mb-8 p-4 bg-green-900 border border-green-700 rounded-lg text-green-300">
+            Slack connected successfully!
+          </div>
+        )}
+      </Suspense>
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center py-16 px-6">
