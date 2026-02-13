@@ -15,7 +15,7 @@ export default function Home() {
   const [errorMsg, setErrorMsg] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
 
-  // Handle Slack/Zoom connection status from URL
+  // Handle connection status from URL params (client-only)
   useEffect(() => {
     const slack = searchParams.get('slack')
     const zoom = searchParams.get('zoom')
@@ -39,9 +39,7 @@ export default function Home() {
 
   // Auth session listener
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
+    supabase.auth.getSession().then(({ data: { session } }) => setSession(session))
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
@@ -91,7 +89,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main */}
+      {/* Main Content */}
       <main className="flex-1 flex items-center justify-center py-16 px-6">
         <div className="max-w-4xl w-full text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">FlowAI Hub</h1>
@@ -100,7 +98,7 @@ export default function Home() {
           </p>
 
           {/* Messages – wrapped in Suspense */}
-          <Suspense fallback={<div className="h-12" />}>
+          <Suspense fallback={<div className="h-12 bg-gray-900 rounded-xl animate-pulse" />}>
             {searchParams.get('slack') === 'connected' && (
               <div className="mb-8 p-4 bg-green-900/60 border border-green-700 rounded-xl text-green-300">
                 Slack connected successfully!
@@ -119,7 +117,6 @@ export default function Home() {
           </Suspense>
 
           {!session ? (
-            /* Auth Form */
             <div className="max-w-md mx-auto bg-gray-900 p-10 rounded-2xl shadow-2xl border border-gray-800">
               <h2 className="text-3xl font-semibold mb-8 text-white">Get Started</h2>
 
@@ -157,7 +154,6 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            /* Dashboard */
             <div className="max-w-3xl mx-auto bg-gray-900 p-12 rounded-2xl shadow-2xl border border-gray-800">
               <h2 className="text-4xl font-bold mb-6 text-white">Welcome back!</h2>
               <p className="text-xl mb-10 text-gray-300">
@@ -191,7 +187,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
         <p>© 2026 FlowAI Hub • Built with KINSO</p>
       </footer>
